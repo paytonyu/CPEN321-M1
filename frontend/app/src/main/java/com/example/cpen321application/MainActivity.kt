@@ -30,7 +30,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.cpen321application.ui.screens.Livescreen
+import com.example.cpen321application.ui.screens.LiveUpdateScreen
 import com.example.cpen321application.ui.screens.Loginscreen
 import com.example.cpen321application.ui.screens.Timerscreen
 
@@ -65,7 +65,7 @@ fun Mainscreen(navController: NavController){
             ){
             Text("Login + Server")
         }
-        Button(onClick = {navController.navigate("liveUpdated")},
+        Button(onClick = {navController.navigate("LiveUpdateScreen")},
             modifier = Modifier.fillMaxWidth()
         ){
             Text("Live Updates")
@@ -84,7 +84,7 @@ fun Navigation(){
     NavHost(navController, startDestination = "home") {
         composable("home") { Mainscreen(navController) }
         composable("login") { Loginscreen() }
-        composable("liveUpdates") { Livescreen() }
+        composable("LiveUpdateScreen") { LiveUpdateScreen() }
         composable("timer") { Timerscreen() }
     }
 

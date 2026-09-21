@@ -8,15 +8,21 @@ export function createApp(): Express {
   });
 
   app.get('/name', (_req, res) => {
-    res.json({ Name: 'Payton Yu' });
+    res.json({ firstName: 'Payton', lastName: 'Yu' });
   });
 
-  app.get('/server-ip', (_req, res) => {
-    res.json({ status: 'ok' });
+  app.get('/server-ip', async (_req, res) => {
+    try {
+      const r = await fetch('https://api.ipify.org?format=json');
+      res.json(await r.json());
+    } catch {
+      res.status(500).json({ error: 'could not get IP' });
+    }
   });
 
   app.get('/server-time', (_req, res) => {
-    res.json({ status: 'hh:mm:ss GMT+hh:mm' });
+    const [time, gmt] = new Date().toTimeString().split(' ');
+    res.json({ time: `${time} ${gmt.slice(0, 6)}:${gmt.slice(6)}` });
   });
 
   app.use((_req, res) => {

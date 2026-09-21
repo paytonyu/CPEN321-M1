@@ -35,7 +35,6 @@ fun Timerscreen(modifier: Modifier = Modifier) {
         }
         else if (running && secondsleft == 0) {
             running = false
-            // surprise
         }
     }
 
