@@ -24,10 +24,13 @@ import okhttp3.Request
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import org.json.JSONObject
+import androidx.compose.material3.TextButton
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Arrangement
 
 @Composable
-fun LiveUpdateScreen(modifier: Modifier = Modifier) {
-    // 256 cells, all start white
+fun LiveUpdateScreen(onBack: () -> Unit, modifier: Modifier = Modifier) {
     val pixels = remember { mutableStateListOf<Color>().apply { repeat(256) { add(Color.White) } } }
 
     DisposableEffect(Unit) {
@@ -44,7 +47,6 @@ fun LiveUpdateScreen(modifier: Modifier = Modifier) {
                 val color = Color(android.graphics.Color.parseColor(json.getString("color")))
 
                 handler.post {
-                    // if no pixel for 3 seconds, a new image is starting, so clear it
                     val now = System.currentTimeMillis()
                     if (now - lastTime > 3000) {
                         for (i in 0 until 256) pixels[i] = Color.White
@@ -57,16 +59,27 @@ fun LiveUpdateScreen(modifier: Modifier = Modifier) {
 
         onDispose { socket.close(1000, null) }
     }
+    Column(modifier = modifier.fillMaxSize().statusBarsPadding()) {
+        TextButton(onClick = onBack) {
+            Text("← Back")
+        }
 
-    Column(
-        modifier = modifier.fillMaxSize().padding(24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text("Pixel Art")
-        for (row in 0 until 16) {
-            Row {
-                for (col in 0 until 16) {
-                    Box(Modifier.size(20.dp).background(pixels[row * 16 + col]))
+        Column(
+            modifier = Modifier.weight(1f).fillMaxWidth().padding(24.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Column(
+                modifier = modifier.fillMaxSize().padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text("Pixel Art")
+                for (row in 0 until 16) {
+                    Row {
+                        for (col in 0 until 16) {
+                            Box(Modifier.size(20.dp).background(pixels[row * 16 + col]))
+                        }
+                    }
                 }
             }
         }

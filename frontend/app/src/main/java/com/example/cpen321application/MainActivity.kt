@@ -83,9 +83,9 @@ fun Navigation(){
     val navController = rememberNavController()
     NavHost(navController, startDestination = "home") {
         composable("home") { Mainscreen(navController) }
-        composable("login") { Loginscreen() }
-        composable("LiveUpdateScreen") { LiveUpdateScreen() }
-        composable("timer") { Timerscreen() }
+        composable("login") { Loginscreen(onBack = { navController.popBackStack() }) }
+        composable("LiveUpdateScreen") { LiveUpdateScreen(onBack = { navController.popBackStack() }) }
+        composable("timer") { Timerscreen(onBack = { navController.popBackStack() }) }
     }
 
 }
