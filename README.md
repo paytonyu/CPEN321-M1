@@ -16,7 +16,7 @@ Install the following before the frontend or backend setup steps:
 - Set these in that directory
 - API_BASE_URL=https://136-69-219-97.sslip.io
 - GOOGLE_CLIENT_ID=292455378702-dhh20riv08llt0bomk8bifq0ke8218o8.apps.googleusercontent.com (the Web OAuth client ID; not a secret)
-- sdk.dir=<path to your Android SDK>
+- `sdk.dir=<path to your Android SDK>`
 - Open frontend/ in Android Studio and run on a Pixel 9, API 36 emulator with Google Play
 - use the submitted APK to test sign-in (google sign in only works with the APK submitted here)
 
