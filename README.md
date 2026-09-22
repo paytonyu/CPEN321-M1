@@ -1,4 +1,4 @@
-# CPEN321_26W1_ProjectName
+# CPEN321-M1 — Payton Yu.
 
 _Keep this README up to date with the steps required to build and run the frontend and backend (including any scripts, config files, and environment variables). TAs ill follow these instructions._
 
@@ -12,6 +12,13 @@ Install the following before the frontend or backend setup steps:
 --- 
 
 ## Frontend Setup
+- cp frontend/local.properties.example frontend/local.properties
+- Set these in that directory
+- API_BASE_URL=https://136-69-219-97.sslip.io
+- GOOGLE_CLIENT_ID=292455378702-dhh20riv08llt0bomk8bifq0ke8218o8.apps.googleusercontent.com (the Web OAuth client ID; not a secret)
+- sdk.dir=<path to your Android SDK>
+- Open frontend/ in Android Studio and run on a Pixel 9, API 36 emulator with Google Play
+- use the submitted APK to test sign-in (google sign in only works with the APK submitted here)
 
 ### Requirements
 
@@ -33,7 +40,7 @@ Install the following before the frontend or backend setup steps:
    ```
    Set at least:
    - `sdk.dir`: path to your Android SDK. Android Studio usually writes this the first time you open `frontend/`. On Mac it is often `sdk.dir=/Users/<username>/Library/Android/sdk`.
-   - `API_BASE_URL`: backend URL baked into the APK. Use `http://10.0.2.2:3000` for the emulator (`10.0.2.2` is the host machine). For a physical device on the same Wi-Fi, use `http://<your-lan-ip>:3000`.
+   - `API_BASE_URL=https://136-69-219-97.sslip.io`
 
 
 ### Build and Run
@@ -54,6 +61,19 @@ You can run the backend in one of two ways:
 * Via Docker Compose
 
 Both ways use the same `backend/.env` file (see below).
+
+- Install Docker and git: curl -fsSL https://get.docker.com | sudo sh
+- git clone https://github.com/paytonyu/CPEN321-M1
+- cp backend/.env.example backend/.env, then set JWT_SECRET to any random string
+- Start the backend: sudo ./scripts/run-backend.sh
+- HTTPS: install Caddy (caddyserver.com/docs/install), set /etc/caddy/Caddyfile to:
+```
+  136-69-219-97.sslip.io {
+      reverse_proxy localhost:3000
+  }
+```
+- sudo systemctl reload caddy
+
 
 ### Environment configuration
 
