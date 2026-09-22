@@ -1,5 +1,4 @@
 package com.example.cpen321application.ui.screens
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -48,7 +47,7 @@ fun Timerscreen(onBack: () -> Unit, modifier: Modifier = Modifier) {
                 message = "Jumpscare in $i..."
                 delay(1000)
             }
-            message = "Just kidding 😄"
+            message = "Error: preview.png failed"
             delay(2000)
             message = null
             repeat(3) { i ->
